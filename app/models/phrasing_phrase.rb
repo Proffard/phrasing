@@ -3,10 +3,12 @@ class PhrasingPhrase < ActiveRecord::Base
   validates_presence_of :key, :locale
 
   validate :uniqueness_of_key_on_locale_scope, on: :create
+  has_paper_trail  :meta => { :title => :paper_trail_title }
 
-  has_many :versions, dependent: :destroy, class_name: "PhrasingPhraseVersion"
+  def paper_trail_title
+    "[#{self.locale}] #{self.key}"
+  end
 
-  after_update :version_it
 
   def self.search_i18n_and_create_phrase key
     begin
