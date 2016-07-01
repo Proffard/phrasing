@@ -10,5 +10,7 @@ gem "rails", "~> #{rails_version}"
 gem 'factory_girl_rails'
 gem 'sqlite3'
 gem 'rspec-rails'
-gem 'capybara', '~> 2.2.0'
+gem 'capybara', '~> 2.3.0'
 gem 'jasmine-rails'
+gem 'pry-rails'
+gem 'sass', '3.4.0'

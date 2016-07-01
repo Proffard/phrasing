@@ -6,7 +6,6 @@
 
 Phrasing is a gem for live editing phrases (copy) on websites.
 
-**Notice:** If using Phrasing version 3, checkout the [old README](https://github.com/infinum/phrasing/blob/new-release-4/README-3.md).
 ## Installation
 
 Include the gem in your Gemfile
@@ -17,18 +16,18 @@ gem "phrasing"
 
 Bundle the Gemfile
 
-```shell
+```ruby
 bundle install
 ```
 
 Run the install script which will create a migration file and a config file.
 
-```shell
-rails generate phrasing
+```ruby
+rake phrasing:install
 ```
 
 Migrate your database
-```shell
+```ruby
 rake db:migrate
 ```
 
@@ -53,18 +52,9 @@ Include the phrasing **html** initializer at the top of your application layout 
 = render 'phrasing/initializer'
 ```
 
-Include the required **javascript** files:
+Include the required **javascript** file:
 
 ```javascript
-//= require phrasing
-```
-
-Include the required **javascript** files:
-
-```javascript
-//= require jquery
-//= require jquery_ujs
-//= require jquery.cookie
 //= require phrasing
 ```
 
@@ -78,11 +68,11 @@ Include the required **stylesheet** file:
 
 You can start adding new phrases by simply adding them in your view file:
 
-	= phrase('my-first-phrase')
+  = phrase('my-first-phrase')
 
 Aside from editing phrases (basically, Rails translations) you can also edit model attributes inline. Use the same `phrase` method, with the first attribute being the record in question, and the second one the attribute you wish to make editable:
 
-  	= phrase(@post, :title)
+    = phrase(@post, :title)
 
 In the above example, <tt>@post</tt> is the record with a <tt>title</tt> attribute.
 
@@ -95,14 +85,18 @@ By default, Phrasing doesn't allow updating of any attribute apart from <tt>Phra
 In the <tt>config/initializers/phrasing.rb</tt> file you can whitelist your model attributes like this:
 
 ```ruby
-config.white_list = ["Post.title", "Post.body"]
+Phrasing.white_list = ["Post.title", "Post.body"]
 ```
 
 or you can whitelist all of them (not recommended) with:
 
 ```ruby
-config.allow_update_on_all_models_and_attributes = true
+Phrasing.allow_update_on_all_models_and_attributes = true
 ```
+
+## Upgrading from version 2.x to 3.x
+
+In versions 3.0.0 and above we have added the Phrasing Versioning System which requires an additional table, so if you are upgrading to a 3.x release, run <tt>rake phrasing:install</tt> to get the additional migration file, then run <tt>rake db:migrate</tt>.
 
 ## Turbolinks
 
@@ -110,8 +104,6 @@ If you're experiencing problems with Rails apps using Turbolinks, include the [j
 
 ```javascript
 //= require jquery
-//= require jquery_ujs
-//= require jquery.cookie
 //= require jquery.turbolinks
 //= require phrasing
 //= require turbolinks
@@ -124,6 +116,7 @@ The `phrase` view helper can take the `options` hash as the last parameter. Feat
 url: custom_url # point Phrasing to other actions in other controllers
 inverse: true # change the hovered background and underline colors to better fit darker backgrounds
 class: custom_class # add custom CSS classes to your phrases to change the appearance of phrases in your application
+interpolation: { %min: 10 } # add variables to your translations just like w/ I18n
 scope: 'homepage.footer' # add scopes just like you would w/ I18.n. If the first argument is 'test', than the key would be 'homepage.footer.test'
 ```
 

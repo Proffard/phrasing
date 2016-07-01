@@ -1,3 +1,3 @@
 module Phrasing
-  VERSION = "3.2.10"
+  VERSION = "4.0.0rc3"
 end

@@ -1,6 +1,6 @@
 class CreatePhrasingPhraseVersions < ActiveRecord::Migration
   def change
-    create_table :phrasing_phrase_versions do |t|    
+    create_table :phrasing_phrase_versions do |t|
       t.integer :phrasing_phrase_id
       t.text :value
       t.timestamps
